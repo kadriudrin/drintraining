@@ -1,0 +1,41 @@
+.loginDiv{
+  height: 90%;
+	display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.invalidCombo {
+  margin-bottom: 10px;
+}
+
+.loginCard {
+	display: flex;
+	width: 400px;
+	height: 300px;
+	border-radius: 50px;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.loginForm {
+	width: 80%;
+}
+
+.formElement{
+	width: 100%;
+	border-radius: 50px;
+}
+
+.submitButton {
+	width: 100%;
+	border-radius: 50px;
+	margin-top: 10px;
+}
+
+.registerButton {
+	width: 50%;
+	border-radius: 50px;
+	margin-top: 5px;
+}

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { User } from '../models/user.model';
 import { AuthUser } from '../models/authuser.model';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
@@ -33,6 +33,16 @@ export class AuthenticationService {
 
     login(email : string, password : string){
         return this.http.post<any>("https://salty-crag-12236.herokuapp.com/auth/login/admin", { email, password }).pipe(map(user => { this.cookies.set('currentUser', JSON.stringify(user)); this.currentUserSubject.next(user); return user; }));
+    }
+
+    handleError(err : HttpErrorResponse){
+        if (err.error instanceof ErrorEvent){
+            console.log("Clinet side error: ", err.error.message);
+        }
+        else {
+            console.log("Server side error status: ", err.status, " body was: ", err.error);
+        }
+        return throwError("Something bad happened, try again later!");
     }
 
     logout(){

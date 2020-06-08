@@ -9,10 +9,10 @@ import { UsersService } from '../services/users.service';
 export class UsersComponent implements OnInit {
 
     constructor(private users : UsersService) {
-        this.users.getUsers().subscribe(val => console.log("UsrComp: ", val));
     }
 
   ngOnInit(): void {
+        this.users.getUsers().subscribe(val => console.log("UsrComp: ", val));
   }
 
 }

@@ -37,14 +37,18 @@ export class LoginComponent implements OnInit {
 		)
 	}
 
-    successful(data : any){
+    check_success(data : any){
         this.loading = false;
         this.success = true;
         this.router.navigate(['/']);
     }
 
     failure(error : any){
-        this.errorMsg = error.error.message;
+        if (error == null){
+            return;
+        }
+        this.errorMsg = error;
+        console.log("Failure by: ", this.errorMsg);
         this.loading = false;
         this.success = false;
         this.failed = true;
@@ -53,7 +57,7 @@ export class LoginComponent implements OnInit {
 	async loginHandle(){
 		this.loading = true;
 
-        this.auth.login(this.email, this.password).pipe(first()).subscribe(data => { this.successful(data); }, error => { this.failure(error); });            	
+        this.auth.login(this.email, this.password).pipe(first()).subscribe(data => { this.check_success(data); });            	
 	}
     
 	get email(){

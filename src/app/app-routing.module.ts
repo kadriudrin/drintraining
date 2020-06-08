@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
-import { ErrorComponent } from './error/error.component';
-import { AuthGuard } from './utils/auth.guard';
-import { LoggedInGuard } from './utils/loggedin.guard';
+import { ErrorComponent } from './shared/error/error.component';
+import { AuthGuard } from './api/core/utils/auth.guard';
+import { LoggedInGuard } from './api/core/utils/loggedin.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SettingsComponent } from './settings/settings.component';
 import { TasksComponent } from './tasks/tasks.component';

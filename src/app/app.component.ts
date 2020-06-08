@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {
   Router,
   Event as RouterEvent,
@@ -8,7 +8,7 @@ import {
   NavigationError
 } from '@angular/router';
 
-import { AuthenticationService } from './services/authentication.service';
+import {AuthenticationService} from './api/authentication/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -18,33 +18,32 @@ import { AuthenticationService } from './services/authentication.service';
 export class AppComponent {
   title = 'drintraining';
 
-    loading = true;
+  loading = true;
 
-  constructor(private router: Router, private auth : AuthenticationService) {
-    this.router.events.subscribe((e : RouterEvent) => {
-       this.navigationInterceptor(e);
-     })
+  constructor(private router: Router, private auth: AuthenticationService) {
+    this.router.events.subscribe((e: RouterEvent) => {
+      this.navigationInterceptor(e);
+    });
   }
 
-    menu(){
-        console.log("Menu");
-    }
+  menu() {
+    console.log('Menu');
+  }
 
-    logout(){
-        this.auth.logout();
-    }
+  logout() {
+    this.auth.logout();
+  }
 
-    logged(){
-        return this.auth.currentUserValue;
-    }
+  logged() {
+    return this.auth.currentUserValue;
+  }
 
   navigationInterceptor(event: RouterEvent): void {
-		
-		if (event instanceof NavigationStart) {
+
+    if (event instanceof NavigationStart) {
       this.loading = true;
-		}
-    else if (event instanceof NavigationEnd || event instanceof NavigationCancel || event instanceof NavigationError) {
+    } else if (event instanceof NavigationEnd || event instanceof NavigationCancel || event instanceof NavigationError) {
       this.loading = false;
     }
-	}
+  }
 }

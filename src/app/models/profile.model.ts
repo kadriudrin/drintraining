@@ -1,4 +1,4 @@
-export class profile {
+export class Profile {
     description: string;
     id: number;
     name: string;

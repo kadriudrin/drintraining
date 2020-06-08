@@ -2,13 +2,20 @@
 <link href="https://fonts.googleapis.com/css?family=Comfortaa&display=swap" rel="stylesheet">
 <div class="mat-typography app-frame mat-app-background" fxLayout="column">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 <mat-toolbar color="primary">
 	<button *ngIf="!logged()" class="icon-button" mat-icon-button [routerLink]="['/backoffice']"><mat-icon class="icon">login</mat-icon></button>
-	<button *ngIf="logged()" (click)="menu()" class="icon-button" mat-icon-button><mat-icon class="icon">menu</mat-icon></button>
-  <button *ngIf="logged()" class="icon-button" mat-icon-button [routerLink]="['']"><mat-icon class="icon">home</mat-icon></button>
+	<button *ngIf="logged()" [matMenuTriggerFor]="extraMenu" class="icon-button" mat-icon-button><mat-icon class="icon">menu</mat-icon></button>
 	<button *ngIf="logged()" (click)="logout()" class="icon-button" mat-icon-button><mat-icon class="icon">exit_to_app</mat-icon></button>
 	<span><mat-spinner *ngIf="loading" color="accent" class="loadingSpinner" diameter="25" strokeWidth="5"></mat-spinner></span>
 </mat-toolbar>
+
+<mat-menu #extraMenu="matMenu">
+		<div><button mat-menu-item [routerLink]="['/']"><mat-icon>dashboard</mat-icon>Dashboard</button></div>
+		<div><button mat-menu-item [routerLink]="['/users']"><mat-icon>people_alt</mat-icon>Users</button></div>
+		<div><button mat-menu-item [routerLink]="['/settings']"><mat-icon>settings</mat-icon>Settings</button></div>
+		<div><button mat-menu-item [routerLink]="['/tasks']"><mat-icon>list</mat-icon>Tasks</button></div>
+</mat-menu>
 
 <router-outlet></router-outlet>
 

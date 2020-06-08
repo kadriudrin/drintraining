@@ -19,18 +19,25 @@ import {MatCardModule} from '@angular/material/card';
 
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { HttpClientModule } from '@angular/common/http';
-import { HomeComponent } from './home/home.component';
 import { ErrorComponent } from './error/error.component';
 import {MatIconModule} from '@angular/material/icon';
 
 import { CookieService } from 'ngx-cookie-service';
+import {MatMenuModule} from '@angular/material/menu';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { SettingsComponent } from './settings/settings.component';
+import { TasksComponent } from './tasks/tasks.component';
+import { UsersComponent } from './users/users.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent,
-    ErrorComponent
+    ErrorComponent,
+    DashboardComponent,
+    SettingsComponent,
+    TasksComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,
@@ -46,6 +53,7 @@ import { CookieService } from 'ngx-cookie-service';
 		MatProgressSpinnerModule,
         HttpClientModule,
         MatIconModule,
+        MatMenuModule,
       MatInputModule
 	],
   providers: [CookieService],

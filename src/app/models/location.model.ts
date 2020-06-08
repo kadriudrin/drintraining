@@ -1,4 +1,4 @@
-export class location {
+export class Location {
     city: string;
     country: string;
     county: string;

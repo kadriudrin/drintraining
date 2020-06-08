@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
 
         this.auth.login(this.email, this.password).pipe(first()).subscribe(data => { this.successful(data); }, error => { this.failure(error); });            	
 	}
-
+    
 	get email(){
 		return this.myForm.get('email').value;
 	}

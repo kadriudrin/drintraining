@@ -6,12 +6,12 @@
   <mat-error class="invalidCombo" *ngIf="failed">{{ errorMsg }}</mat-error>
 	<mat-form-field class="formElement">
 		<input matInput placeholder="email" formControlName="email">
-		<mat-error *ngIf="email.invalid && email.touched">Please enter a valid email address</mat-error>
+		<mat-error>Please enter a valid email address</mat-error>
 	</mat-form-field>
 
 	<mat-form-field class="formElement">
     <input type="password" matInput placeholder="password" formControlName="password">
-		<mat-error *ngIf="password.pristine && password.touched">Password is required</mat-error>
+		<mat-error>Password is required</mat-error>
 	</mat-form-field>
 
 	<button [disabled]="myForm.invalid" class="submitButton" mat-flat-button color="accent">Log In</button>

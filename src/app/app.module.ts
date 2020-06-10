@@ -28,6 +28,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SettingsComponent } from './settings/settings.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { UsersComponent } from './users/users.component';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { UsersComponent } from './users/users.component';
         HttpClientModule,
         MatIconModule,
         MatMenuModule,
+        MatTableModule,
       MatInputModule
 	],
   providers: [CookieService],

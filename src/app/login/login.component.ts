@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit {
     );
   }
 
+<<<<<<< HEAD
   successful(data: any) {
     this.loading = false;
     this.success = true;
@@ -63,12 +64,42 @@ export class LoginComponent implements OnInit {
       this.failure(error);
     });
   }
+=======
+    check_success(data : any){
+        this.loading = false;
+        this.success = true;
+        this.router.navigate(['/']);
+    }
+
+    failure(error : any){
+        if (error == null){
+            return;
+        }
+        this.errorMsg = error;
+        console.log("Failure by: ", this.errorMsg);
+        this.loading = false;
+        this.success = false;
+        this.failed = true;
+    }
+>>>>>>> 866c104ab2a4298aa00ed3a5969ee1880ac312c0
 
   get email() {
     return this.myForm.get('email').value;
   }
 
+<<<<<<< HEAD
   get password() {
     return this.myForm.get('password').value;
   }
+=======
+        this.auth.login(this.email, this.password).pipe(first()).subscribe(data => { this.check_success(data); });            	
+	}
+    
+	get email(){
+		return this.myForm.get('email').value;
+	}
+	get password(){
+		return this.myForm.get('password').value;
+	}
+>>>>>>> 866c104ab2a4298aa00ed3a5969ee1880ac312c0
 }

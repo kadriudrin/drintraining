@@ -1,11 +1,6 @@
-<<<<<<< HEAD
 import {Component, OnInit} from '@angular/core';
 import {UsersService} from '../api/users/users.service';
-=======
-import { Component, OnInit } from '@angular/core';
-import { UsersService } from '../services/users.service';
-import { User } from '../models/user.model';
->>>>>>> 866c104ab2a4298aa00ed3a5969ee1880ac312c0
+import {User} from '../api/users/user.model';
 
 @Component({
   selector: 'app-users',
@@ -14,19 +9,14 @@ import { User } from '../models/user.model';
 })
 export class UsersComponent implements OnInit {
 
-<<<<<<< HEAD
-  constructor(private users: UsersService) {
-    this.users.getUsers().subscribe(val => console.log('UsrComp: ', val));
-  }
-=======
-    userList : User[] = [];
+  userList : User[];
   displayedColumns: string[] = ['id', 'name', 'email', 'role'];
-    constructor(private users : UsersService) {
-    }
->>>>>>> 866c104ab2a4298aa00ed3a5969ee1880ac312c0
+
+  constructor(private users : UsersService) {
+  }
 
   ngOnInit(): void {
-        this.users.getUsers().subscribe(val => this.userList = val);
+    this.users.getUsers().subscribe(val => { console.log(val); this.userList = val }, err => console.error("ERROR: ", err));
   }
 
 }

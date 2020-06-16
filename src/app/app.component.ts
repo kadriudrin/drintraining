@@ -35,7 +35,7 @@ export class AppComponent {
   }
 
   logged() {
-    return this.auth.currentUserValue;
+    return this.auth.authenticated;
   }
 
   navigationInterceptor(event: RouterEvent): void {

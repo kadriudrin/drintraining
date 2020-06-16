@@ -3,7 +3,7 @@
 
 <form [formGroup]="myForm" class="loginForm" (ngSubmit)="loginHandle()">
 
-  <mat-error class="invalidCombo" *ngIf="failed">{{ errorMsg }}</mat-error>
+  <mat-error class="invalidCombo">{{ errorMsg }}</mat-error>
 	<mat-form-field class="formElement">
 		<input matInput placeholder="email" formControlName="email">
 		<mat-error>Please enter a valid email address</mat-error>

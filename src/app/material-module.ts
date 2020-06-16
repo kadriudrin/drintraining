@@ -8,8 +8,9 @@ import {MatCardModule} from '@angular/material/card';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
-
-
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
 @NgModule({
   exports: [
     MatToolbarModule,
@@ -20,6 +21,9 @@ import {MatMenuModule} from '@angular/material/menu';
     MatProgressSpinnerModule,
     MatIconModule,
     MatMenuModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
     MatInputModule
   ]
 })

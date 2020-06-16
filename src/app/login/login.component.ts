@@ -20,16 +20,13 @@ export class LoginComponent implements OnInit {
   loading: boolean = false;
   success: boolean = false;
 
-  errorMsg: string;
+  errorMsg: string = "";
 
   failed: boolean = false;
 
   successUrl: string = 'home';
 
   constructor(private fb: FormBuilder, private auth: AuthenticationService, private router: Router) {
-    if (auth.currentUserValue) {
-      router.navigate(['/']);
-    }
   }
 
   ngOnInit(): void {
@@ -41,7 +38,6 @@ export class LoginComponent implements OnInit {
     );
   }
 
-<<<<<<< HEAD
   successful(data: any) {
     this.loading = false;
     this.success = true;
@@ -55,51 +51,16 @@ export class LoginComponent implements OnInit {
     this.failed = true;
   }
 
-  async loginHandle() {
+  loginHandle() {
     this.loading = true;
-    // todo: We will work on this later on as it needs to be a promise service call funcition..
-    this.auth.login(this.email, this.password).pipe(first()).subscribe(data => {
-      this.successful(data);
-    }, error => {
-      this.failure(error);
-    });
+    this.auth.login(this.email, this.password)
+      .then((res) => this.successful(res)).catch((rej) => this.failure(rej));
   }
-=======
-    check_success(data : any){
-        this.loading = false;
-        this.success = true;
-        this.router.navigate(['/']);
-    }
-
-    failure(error : any){
-        if (error == null){
-            return;
-        }
-        this.errorMsg = error;
-        console.log("Failure by: ", this.errorMsg);
-        this.loading = false;
-        this.success = false;
-        this.failed = true;
-    }
->>>>>>> 866c104ab2a4298aa00ed3a5969ee1880ac312c0
-
-  get email() {
-    return this.myForm.get('email').value;
-  }
-
-<<<<<<< HEAD
-  get password() {
-    return this.myForm.get('password').value;
-  }
-=======
-        this.auth.login(this.email, this.password).pipe(first()).subscribe(data => { this.check_success(data); });            	
-	}
-    
+   
 	get email(){
 		return this.myForm.get('email').value;
 	}
 	get password(){
 		return this.myForm.get('password').value;
 	}
->>>>>>> 866c104ab2a4298aa00ed3a5969ee1880ac312c0
 }

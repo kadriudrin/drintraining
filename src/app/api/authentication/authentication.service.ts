@@ -14,35 +14,55 @@ export class AuthenticationService {
 
   private currentUserSubject: BehaviorSubject<AuthUser>;
 
+  public authenticated : boolean = false;
+  
+  public auth_token : string;
+
   public currentUser: Observable<AuthUser>;
 
-  constructor(private http: HttpClient, private router: Router, private cookies: CookieService) {
-    // smart and cheeky :)
-    if (this.cookies.check('currentUser')) {
-      this.currentUserSubject = new BehaviorSubject<AuthUser>(JSON.parse(this.cookies.get('currentUser')));
-    } else {
-      this.currentUserSubject = new BehaviorSubject<AuthUser>(null);
-    }
+  private apiUrl = 'https://salty-crag-12236.herokuapp.com/auth/login/admin'; 
 
+  constructor(private http: HttpClient, private router: Router, private cookies: CookieService) {
+    let cookieUsr = null; 
+    if (this.cookies.check('currentUser'))
+    {
+      this.authenticated = true;
+      cookieUsr = JSON.parse(this.cookies.get('currentUser'));
+    }
+    this.currentUserSubject = new BehaviorSubject<AuthUser>(cookieUsr);
+
+    if (cookieUsr != null)
+      this.auth_token = this.currentUserValue.auth_token;
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
   public get currentUserValue() {
     return this.currentUserSubject.getValue();
   }
-
-  // todo: We will work on this later on as it needs to be a promise service call funcition..
-  // todo: We use the Servce class function only for triggering the request for
-  //       this to be possible we need Promises :) for both handling the http response and for http error response
+  
   login(email: string, password: string) {
-    return this.http.post<any>('https://salty-crag-12236.herokuapp.com/auth/login/admin', {email, password}).pipe(map(user => {
-      this.cookies.set('currentUser', JSON.stringify(user));
-      this.currentUserSubject.next(user);
-      return user;
-    }));
+    let promise = new Promise((resolve, reject) => {
+      this.http.post<any>(this.apiUrl, {email, password})
+        .toPromise()
+        .then(res => {
+          this.authenticated = true;
+          this.cookies.set('currentUser', JSON.stringify(res));
+          this.currentUserSubject.next(res);
+          this.auth_token = this.currentUserValue.auth_token;
+          resolve(res);
+        }
+        )
+        .catch(err => {
+          reject(err);
+        }
+        )
+    });
+    return promise;
   }
 
   logout() {
+    this.authenticated = false;
+    this.auth_token = "";
     this.cookies.delete('currentUser');
     this.currentUserSubject.next(null);
     this.router.navigate(['/backoffice']);

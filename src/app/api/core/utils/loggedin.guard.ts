@@ -11,12 +11,11 @@ export class LoggedInGuard implements CanActivate {
     ) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        const currentUser = this.authenticationService.currentUserValue;
-        if (currentUser) {
-            this.router.navigate(['/']);
-            return false;
-        }
-
+      if (!this.authenticationService.authenticated) {
         return true;
+      }
+
+      this.router.navigate(['/']);
+      return false;
     }
 }

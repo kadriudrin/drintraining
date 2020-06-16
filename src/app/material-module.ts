@@ -9,7 +9,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatTableModule} from '@angular/material/table';
-
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
 @NgModule({
   exports: [
     MatToolbarModule,
@@ -21,6 +22,8 @@ import {MatTableModule} from '@angular/material/table';
     MatIconModule,
     MatMenuModule,
     MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
     MatInputModule
   ]
 })

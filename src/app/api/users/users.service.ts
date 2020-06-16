@@ -17,7 +17,7 @@ export class UsersService {
   }
 
   getUsers() {
-    const httpOptions = {headers: new HttpHeaders({'Authorization': ('Bearer ' + this.auth.auth_token)}), responseType: 'text' as 'json'};
-    return this.http.get<any[]>(this.apiUrl, httpOptions);
+    const httpOptions = {headers: new HttpHeaders({'Authorization': ('Bearer ' + this.auth.auth_token)})};
+    return this.http.get<User[]>(this.apiUrl, httpOptions);
   }
 }

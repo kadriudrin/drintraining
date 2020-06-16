@@ -1,6 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {UsersService} from '../api/users/users.service';
 import {User} from '../api/users/user.model';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
 
 @Component({
   selector: 'app-users',
@@ -9,14 +12,26 @@ import {User} from '../api/users/user.model';
 })
 export class UsersComponent implements OnInit {
 
-  userList : User[];
-  displayedColumns: string[] = ['id', 'name', 'email', 'role'];
+  userList = new MatTableDataSource<User>();
+  displayedColumns: string[] = ['id', 'pic', 'name', 'surname', 'email', 'phone', 'role'];
+
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(private users : UsersService) {
   }
-
-  ngOnInit(): void {
-    this.users.getUsers().subscribe(val => { console.log(val); this.userList = val }, err => console.error("ERROR: ", err));
+  
+  applyFilter(event : Event){
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.userList.filter = filterValue.trim().toLowerCase();
   }
 
+  ngOnInit(): void {
+    this.userList.paginator = this.paginator;
+    this.userList.sort = this.sort;
+    this.users.getUsers().subscribe(val => { 
+      this.userList.data = val; 
+      console.log(this.userList.data); 
+    }, err => console.error("ERROR: ", err));
+  }
 }

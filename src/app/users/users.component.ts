@@ -12,16 +12,11 @@ import {MatSort} from '@angular/material/sort';
 })
 export class UsersComponent implements OnInit {
 
-<<<<<<< HEAD
-  userList : User[] = [];
-  displayedColumns: string[] = ['id', 'name', 'email', 'role'];
-=======
   userList = new MatTableDataSource<User>();
   displayedColumns: string[] = ['id', 'pic', 'name', 'surname', 'email', 'phone', 'role'];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
->>>>>>> improvedAuth
 
   constructor(private users : UsersService) {
   }
@@ -32,15 +27,11 @@ export class UsersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-<<<<<<< HEAD
-    this.users.getUsers().subscribe(val => { this.userList = val; console.log(this.userList) }, err => console.error("ERROR: ", err));
-=======
     this.userList.paginator = this.paginator;
     this.userList.sort = this.sort;
     this.users.getUsers().subscribe(val => { 
       this.userList.data = val; 
       console.log(this.userList.data); 
     }, err => console.error("ERROR: ", err));
->>>>>>> improvedAuth
   }
 }

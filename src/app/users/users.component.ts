@@ -9,14 +9,14 @@ import {User} from '../api/users/user.model';
 })
 export class UsersComponent implements OnInit {
 
-  userList : User[];
+  userList : User[] = [];
   displayedColumns: string[] = ['id', 'name', 'email', 'role'];
 
   constructor(private users : UsersService) {
   }
 
   ngOnInit(): void {
-    this.users.getUsers().subscribe(val => { console.log(val); this.userList = val }, err => console.error("ERROR: ", err));
+    this.users.getUsers().subscribe(val => { this.userList = val; console.log(this.userList) }, err => console.error("ERROR: ", err));
   }
 
 }

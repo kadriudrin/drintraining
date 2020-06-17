@@ -16,7 +16,7 @@ export class UsersService {
   }
 
   getUsers(): Observable<Users[]> {
-    const httpOptions = {headers: new HttpHeaders({'Authorization': ('Bearer ' + this.auth.auth_token)})};
+    const httpOptions = {headers: new HttpHeaders({Authorization: ('Bearer ' + this.auth.auth_token)})};
     return this.http.get<Users[]>(this.apiUrl, httpOptions);
   }
 }

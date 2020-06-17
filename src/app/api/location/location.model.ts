@@ -1,4 +1,4 @@
-export class Location {
+export interface LocationModel {
   city: string;
   country: string;
   county: string;

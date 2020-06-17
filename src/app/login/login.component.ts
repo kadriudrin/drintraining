@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   loading: boolean = false;
   success: boolean = false;
 
-  errorMsg: string = "";
+  errorMsg: string = '';
 
   failed: boolean = false;
 
@@ -56,11 +56,12 @@ export class LoginComponent implements OnInit {
     this.auth.login(this.email, this.password)
       .then((res) => this.successful(res)).catch((rej) => this.failure(rej));
   }
-   
-	get email(){
-		return this.myForm.get('email').value;
-	}
-	get password(){
-		return this.myForm.get('password').value;
-	}
+
+  get email() {
+    return this.myForm.get('email').value;
+  }
+
+  get password() {
+    return this.myForm.get('password').value;
+  }
 }

@@ -1,4 +1,4 @@
-export class Profile {
+export interface ProfileModel {
   description: string;
   id: number;
   name: string;

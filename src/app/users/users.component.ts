@@ -37,9 +37,9 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   async getUserData() {
     await this.userService.getUsers().pipe(map((response: Users[]) => {
-      // descending order sort.
       // todo: maybe create a method because this is something that you would use often.
       response.sort((a, b) => {
+        // descending order sort.
         return new Date(a.created_at).getTime() < new Date(b.created_at).getTime() ? 1 : -1;
       });
       this.userList.data = response;

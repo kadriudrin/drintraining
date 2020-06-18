@@ -30,6 +30,11 @@ export class UsersComponent implements OnInit, AfterViewInit {
     this.getUserData();
   }
 
+  dateFormatter(dt : string){
+    let d : Date = new Date(dt);
+    return d.toUTCString(); 
+  }
+
   ngAfterViewInit() {
     this.userList.paginator = this.paginator; // apply the paginator after view has initialized.
     this.userList.sort = this.sort; // apply the sort after view has initialized.
@@ -54,6 +59,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
           return item.profile.surname;
         case 'phone':
           return item.profile.phoneNumber;
+        case 'created at':
+          return new Date(item.created_at).getTime();
         default:
           return item[property];
       }

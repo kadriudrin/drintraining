@@ -30,7 +30,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
   }
 
   dateFormatter(dt: string) {
-    let d: Date = new Date(dt);
+    const d: Date = new Date(dt);
     return d.toUTCString();
   }
 
@@ -49,7 +49,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
      */
 
     this.userList.filterPredicate = (data, filter) => {
-      const dataStr = data.email.toLowerCase() +
+      const dataStr =
+        data.email.toLowerCase() +
         data.role.toLowerCase() +
         data.profile.name.toLowerCase() +
         data.profile.surname.toLowerCase() +
@@ -69,7 +70,6 @@ export class UsersComponent implements OnInit, AfterViewInit {
     })).subscribe();
   }
 
-  // todo: Here you can apply in depth different strategies for sorting ... depending if you ever need it.
   sortData() {
     this.userList.sortingDataAccessor = (item: Users, property) => {
       switch (property) {

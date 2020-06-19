@@ -37,7 +37,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.userList.paginator = this.paginator; // apply the paginator after view has initialized.
     this.userList.sort = this.sort; // apply the sort after view has initialized.
-    /**
+
+    /** Delete this after you have read it :)
      * FilterPredicate checks if a data object matches the data source's filter string. By default, each data object
      * is converted to a string of its properties and returns true if the filter has
      * at least one occurrence in that string. By default, the filter string has its whitespace

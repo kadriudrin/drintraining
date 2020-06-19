@@ -21,23 +21,41 @@ export class UsersComponent implements OnInit, AfterViewInit {
   constructor(private userService: UsersService) {
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.userList.filter = filterValue.trim().toLowerCase();
+  applyFilter(filterValue: string) {
+    this.userList.filter = filterValue.toLowerCase();
   }
 
   ngOnInit(): void {
     this.getUserData();
   }
 
-  dateFormatter(dt : string){
-    let d : Date = new Date(dt);
-    return d.toUTCString(); 
+  dateFormatter(dt: string) {
+    let d: Date = new Date(dt);
+    return d.toUTCString();
   }
 
   ngAfterViewInit() {
     this.userList.paginator = this.paginator; // apply the paginator after view has initialized.
     this.userList.sort = this.sort; // apply the sort after view has initialized.
+    /**
+     * FilterPredicate checks if a data object matches the data source's filter string. By default, each data object
+     * is converted to a string of its properties and returns true if the filter has
+     * at least one occurrence in that string. By default, the filter string has its whitespace
+     * trimmed and the match is case-insensitive. May be overridden for a custom implementation of
+     * filter matching.
+     * @param data Data object used to check against the filter.
+     * @param filter Filter string that has been set on the data source.
+     * @returns Whether the filter matches against the data
+     */
+
+    this.userList.filterPredicate = (data, filter) => {
+      const dataStr = data.email.toLowerCase() +
+        data.role.toLowerCase() +
+        data.profile.name.toLowerCase() +
+        data.profile.surname.toLowerCase() +
+        data.profile.phoneNumber + data.id;
+      return dataStr.indexOf(filter) !== -1;
+    };
   }
 
   async getUserData() {

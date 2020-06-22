@@ -31,7 +31,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   dateFormatter(dt: string) {
     const d: Date = new Date(dt);
-    return d.toUTCString();
+    return d.toLocaleString().split(',')[0];
   }
 
   ngAfterViewInit() {

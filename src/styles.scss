@@ -2,9 +2,9 @@ html, body, app-root, .app-frame {
     overflow: hidden;
     margin: 0;
     height: 100%;
+    width: 100%;
     box-sizing: border-box;
     color: #e0e0e0;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { font-family: Roboto, "Helvetica Neue", sans-serif; }

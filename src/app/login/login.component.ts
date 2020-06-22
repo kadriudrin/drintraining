@@ -17,9 +17,6 @@ export class LoginComponent implements OnInit {
 
   myForm: FormGroup;
 
-  loading: boolean = false;
-  success: boolean = false;
-
   errorMsg: string = '';
 
   failed: boolean = false;
@@ -39,20 +36,15 @@ export class LoginComponent implements OnInit {
   }
 
   successful(data: any) {
-    this.loading = false;
-    this.success = true;
     this.router.navigate(['/']);
   }
 
   failure(error: any) {
     this.errorMsg = error.error.message;
-    this.loading = false;
-    this.success = false;
     this.failed = true;
   }
 
   loginHandle() {
-    this.loading = true;
     this.auth.login(this.email, this.password)
       .then((res) => this.successful(res)).catch((rej) => this.failure(rej));
   }

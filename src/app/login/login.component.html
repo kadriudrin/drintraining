@@ -1,5 +1,5 @@
 <div class="loginDiv">
-<mat-card *ngIf="!loading && !success" class="loginCard">
+<mat-card class="loginCard">
 
 <form [formGroup]="myForm" class="loginForm" (ngSubmit)="loginHandle()">
 
@@ -18,10 +18,4 @@
 </form>
 </mat-card>
 
-<div *ngIf="loading">
-	<mat-spinner color="accent" class="loadingSpinner" diameter="150" strokeWidth="20"></mat-spinner>
 </div>
-
-</div>
-
-<h1>Hello</h1>

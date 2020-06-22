@@ -1,8 +1,8 @@
 .loginDiv{
-  height: 90%;
 	display: flex;
   justify-content: center;
   align-items: center;
+  height: 90%;
 }
 
 .invalidCombo {
@@ -32,10 +32,4 @@
 	width: 100%;
 	border-radius: 50px;
 	margin-top: 10px;
-}
-
-.registerButton {
-	width: 50%;
-	border-radius: 50px;
-	margin-top: 5px;
 }

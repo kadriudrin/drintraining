@@ -10,7 +10,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 import {HttpClientModule} from '@angular/common/http';
-import {ErrorComponent} from './shared/error/error.component';
 
 import {CookieService} from 'ngx-cookie-service';
 import {DashboardComponent} from './dashboard/dashboard.component';
@@ -18,16 +17,22 @@ import {SettingsComponent} from './settings/settings.component';
 import {TasksComponent} from './tasks/tasks.component';
 import {UsersComponent} from './users/users.component';
 import {MaterialModule} from './material-module';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {TokenInterceptor} from './interceptors/token.interceptor'; 
+import {ErrorHandleInterceptor} from './interceptors/errorHandle.interceptor';
+import {SpinnerInterceptor} from './interceptors/spinner.interceptor';
+import {LoaderComponent} from './loader/loader.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    ErrorComponent,
     DashboardComponent,
     SettingsComponent,
     TasksComponent,
-    UsersComponent
+    UsersComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +43,10 @@ import {MaterialModule} from './material-module';
     HttpClientModule,
     MaterialModule
   ],
-  providers: [CookieService],
+  providers: [CookieService, 
+    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorHandleInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule {

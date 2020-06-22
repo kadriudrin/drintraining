@@ -4,7 +4,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort, Sort} from '@angular/material/sort';
 import {Users} from '../api/users/user.model';
-import {map, tap} from 'rxjs/operators';
+import {startWith, map, tap, delay} from 'rxjs/operators';
 
 @Component({
   selector: 'app-users',
@@ -38,17 +38,6 @@ export class UsersComponent implements OnInit, AfterViewInit {
     this.userList.paginator = this.paginator; // apply the paginator after view has initialized.
     this.userList.sort = this.sort; // apply the sort after view has initialized.
 
-    /** Delete this after you have read it :)
-     * FilterPredicate checks if a data object matches the data source's filter string. By default, each data object
-     * is converted to a string of its properties and returns true if the filter has
-     * at least one occurrence in that string. By default, the filter string has its whitespace
-     * trimmed and the match is case-insensitive. May be overridden for a custom implementation of
-     * filter matching.
-     * @param data Data object used to check against the filter.
-     * @param filter Filter string that has been set on the data source.
-     * @returns Whether the filter matches against the data
-     */
-
     this.userList.filterPredicate = (data, filter) => {
       const dataStr =
         data.email.toLowerCase() +
@@ -56,18 +45,23 @@ export class UsersComponent implements OnInit, AfterViewInit {
         data.profile.name.toLowerCase() +
         data.profile.surname.toLowerCase() +
         data.profile.phoneNumber + data.id;
-      return dataStr.indexOf(filter) !== -1;
+      let chunks = filter.match(/\S+/g);
+      let ret : boolean = false;
+      chunks.forEach((i, x) => { 
+        ret = dataStr.indexOf(i) !== -1;
+      });
+      return ret;
     };
   }
 
   async getUserData() {
-    await this.userService.getUsers().pipe(map((response: Users[]) => {
-      // todo: maybe create a method because this is something that you would use often.
-      response.sort((a, b) => {
-        // descending order sort.
-        return new Date(a.created_at).getTime() < new Date(b.created_at).getTime() ? 1 : -1;
-      });
-      this.userList.data = response;
+    await this.userService.getUsers()
+      .pipe(
+        map((response: Users[]) => {
+        response.sort((a, b) => {
+          return new Date(a.created_at).getTime() < new Date(b.created_at).getTime() ? 1 : -1;
+        });
+        this.userList.data = response;
     })).subscribe();
   }
 

@@ -23,6 +23,7 @@ import {ErrorHandleInterceptor} from './interceptors/errorHandle.interceptor';
 import {SpinnerInterceptor} from './interceptors/spinner.interceptor';
 import {LoaderComponent} from './loader/loader.component';
 import { DialogDeleteConfirmComponent } from './dialog-delete-confirm/dialog-delete-confirm.component';
+import { UserEditComponent } from './user-edit/user-edit.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { DialogDeleteConfirmComponent } from './dialog-delete-confirm/dialog-del
     TasksComponent,
     UsersComponent,
     LoaderComponent,
-    DialogDeleteConfirmComponent
+    DialogDeleteConfirmComponent,
+    UserEditComponent
   ],
   imports: [
     BrowserModule,

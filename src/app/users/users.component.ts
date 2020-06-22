@@ -45,7 +45,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   dateFormatter(dt: string) {
     const d: Date = new Date(dt);
-    return d.toLocaleString().split(',')[0];
+    return d.toLocaleString().split(',')[0].replace(/\//g, '-');
   }
 
   ngAfterViewInit() {

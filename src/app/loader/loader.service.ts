@@ -1,26 +1,26 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoaderService {
 
-  public loading : boolean = false;
+  public loading: boolean = false;
 
-  public nextValue : boolean;
+  public nextValue: boolean;
 
-  public changedLoading : boolean = false;
+  public changedLoading: boolean = false;
 
-  public set(value : boolean){
-    console.log("Set: ", value);
+  public set(value: boolean) {
     this.changedLoading = true;
     this.nextValue = value;
     this.setNext();
   }
 
-  public setNext(){
+  public setNext() {
     this.loading = this.nextValue;
   }
 
-  constructor() { }
+  constructor() {
+  }
 }

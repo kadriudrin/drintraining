@@ -46,8 +46,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
         data.profile.surname.toLowerCase() +
         data.profile.phoneNumber + data.id;
       let chunks = filter.match(/\S+/g);
-      let ret : boolean = false;
-      chunks.forEach((i, x) => { 
+      let ret: boolean = false;
+      chunks.forEach((i, x) => {
         ret = dataStr.indexOf(i) !== -1;
       });
       return ret;
@@ -58,11 +58,11 @@ export class UsersComponent implements OnInit, AfterViewInit {
     await this.userService.getUsers()
       .pipe(
         map((response: Users[]) => {
-        response.sort((a, b) => {
-          return new Date(a.created_at).getTime() < new Date(b.created_at).getTime() ? 1 : -1;
-        });
-        this.userList.data = response;
-    })).subscribe();
+          response.sort((a, b) => {
+            return new Date(a.created_at).getTime() < new Date(b.created_at).getTime() ? 1 : -1;
+          });
+          this.userList.data = response;
+        })).subscribe();
   }
 
   sortData() {

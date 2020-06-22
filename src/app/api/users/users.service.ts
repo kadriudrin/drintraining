@@ -15,6 +15,18 @@ export class UsersService {
   constructor(private http: HttpClient, private auth: AuthenticationService) {
   }
 
+  createUser(usr : Users){
+
+  }
+
+  editUser(usr : Users){
+
+  }
+
+  deleteUser(usr : Users){
+
+  }
+
   getUsers(): Observable<Users[]> {
     return this.http.get<Users[]>(this.apiUrl);
   }

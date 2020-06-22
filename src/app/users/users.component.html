@@ -49,14 +49,14 @@
   <ng-container matColumnDef="edit">
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let u">
-      <button color="accent" mat-flat-button>Edit</button>
+      <button class="tableButton" color="accent" mat-flat-button (click)="editUser()">Edit</button>
     </td>
   </ng-container>
 
   <ng-container matColumnDef="delete">
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let u">
-      <button color="warn" mat-flat-button>Delete</button>
+      <button color="warn" class="tableButton" mat-flat-button (click)="openDeleteDialog(u)">Delete</button>
     </td>
   </ng-container>
 
@@ -64,4 +64,4 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-<button color="primary" mat-flat-button>Create User</button>
+<button class="createButton" color="primary" mat-flat-button (click)="createUser()">Create User</button>

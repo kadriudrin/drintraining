@@ -22,6 +22,7 @@ import {TokenInterceptor} from './interceptors/token.interceptor';
 import {ErrorHandleInterceptor} from './interceptors/errorHandle.interceptor';
 import {SpinnerInterceptor} from './interceptors/spinner.interceptor';
 import {LoaderComponent} from './loader/loader.component';
+import { DialogDeleteConfirmComponent } from './dialog-delete-confirm/dialog-delete-confirm.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import {LoaderComponent} from './loader/loader.component';
     SettingsComponent,
     TasksComponent,
     UsersComponent,
-    LoaderComponent
+    LoaderComponent,
+    DialogDeleteConfirmComponent
   ],
   imports: [
     BrowserModule,

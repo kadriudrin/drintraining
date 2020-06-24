@@ -24,6 +24,7 @@ import {SpinnerInterceptor} from './interceptors/spinner.interceptor';
 import {LoaderComponent} from './loader/loader.component';
 import { DialogDeleteConfirmComponent } from './dialog-delete-confirm/dialog-delete-confirm.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
+import { UserCreateComponent } from './user-create/user-create.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { UserEditComponent } from './user-edit/user-edit.component';
     UsersComponent,
     LoaderComponent,
     DialogDeleteConfirmComponent,
-    UserEditComponent
+    UserEditComponent,
+    UserCreateComponent
   ],
   imports: [
     BrowserModule,

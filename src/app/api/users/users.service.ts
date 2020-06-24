@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AuthenticationService} from '../authentication/authentication.service';
 import {Observable} from 'rxjs';
 import {Users} from './user.model';
+import {map, tap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,13 @@ export class UsersService {
   }
 
   deleteUser(usr : Users){
+
+  }
+
+  getUser(id): Observable<Users> {
+    return this.getUsers().pipe(
+      map(res => res.filter(x => x.id == id)[0]),
+    );
 
   }
 

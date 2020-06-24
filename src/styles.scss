@@ -17,4 +17,13 @@ html, body, app-root, .app-frame {
     align-items: center;
 }
 
+.createDialogPanel .mat-dialog-container {
+  overflow: hidden;
+  border-radius: 50px;
+  display: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 body { font-family: Roboto, "Helvetica Neue", sans-serif; }

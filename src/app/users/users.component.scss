@@ -1,3 +1,17 @@
+.tableDiv{
+	display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60%;
+}
+
+.tableCard {
+  padding: 16px;
+  width: 1600px;
+	border-radius: 50px;
+  text-align: center;
+}
+
 .createButton {
   border-radius: 25px;
   width: 200px;

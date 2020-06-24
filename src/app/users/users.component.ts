@@ -7,6 +7,8 @@ import {Users} from '../api/users/user.model';
 import {startWith, map, tap, delay} from 'rxjs/operators';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogDeleteConfirmComponent} from '../dialog-delete-confirm/dialog-delete-confirm.component';
+import {dateFormatter} from '../shared/date.formatter';
+import {UserCreateComponent} from '../user-create/user-create.component';
 
 @Component({
   selector: 'app-users',
@@ -24,10 +26,14 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   applyFilter(filterValue: string) { this.userList.filter = filterValue.toLowerCase(); }
 
+  dateFormatter(s){
+    return dateFormatter(s);
+  }
+
   ngOnInit(): void { this.getUserData(); }
 
-  createUser(){
-
+  openCreateDialog(){
+    const dialogRef = this.dialog.open(UserCreateComponent, {panelClass: 'createDialogPanel'});
   }
 
   editUser(){
@@ -41,11 +47,6 @@ export class UsersComponent implements OnInit, AfterViewInit {
   openDeleteDialog(usr){
     const dialogRef = this.dialog.open(DialogDeleteConfirmComponent, {data: usr, panelClass: 'dialogPanel'});
     dialogRef.afterClosed().subscribe(result => { if (result) this.deleteUser(usr); });
-  }
-
-  dateFormatter(dt: string) {
-    const d: Date = new Date(dt);
-    return d.toLocaleString().split(',')[0].replace(/\//g, '-');
   }
 
   ngAfterViewInit() {

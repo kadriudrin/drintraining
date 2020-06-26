@@ -1,8 +1,9 @@
 <h2 class="title" mat-dialog-subtitle>Create new user</h2>
 <div class="editDiv">
-    <div class="grouplessDiv">
-      <div class="space"></div>
-      <form [formGroup]="myForm" class="editForm" (ngSubmit)="createUser()">
+  <app-error-handle></app-error-handle>
+	<div class="grouplessDiv">
+      <div class="space"></div> 
+			<form [formGroup]="myForm" class="editForm" (ngSubmit)="createUser()">
           <img *ngIf="myForm.value.profile" [src]="myForm.value.profile" class="profilePic">
           <div class="space"></div> 
           <button type="button" class="fileUpload" mat-flat-button (click)="fileInput.click()" color="primary">

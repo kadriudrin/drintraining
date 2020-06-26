@@ -4,31 +4,25 @@ import {AuthenticationService} from '../api/authentication/authentication.servic
 import {Observable, throwError} from 'rxjs';
 import {catchError, retry} from 'rxjs/operators';
 import {Router} from '@angular/router';
+import {ErrorHandleService} from '../shared/services/error-handle.service';
 
 @Injectable()
 export class ErrorHandleInterceptor implements HttpInterceptor {
-  constructor(public auth: AuthenticationService, private router : Router) {}
+  constructor(public auth: AuthenticationService, private router : Router, private errorHandleS : ErrorHandleService) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
       catchError(err => {
-        let errorMsg = '';
+        let errorMsg = `Error: ${err.error.message}`;
         let expiredToken : boolean = false; 
+        
         if (err instanceof HttpErrorResponse) {
-          errorMsg = `Error Code: ${err.status}\nMessage: ${err.message}`;
           if (err.status === 401) {
             this.auth.logout();
             expiredToken = true;
           }
         }
-        else {
-          errorMsg = `Error: ${err.error.message}`;
-        }
-        if (!expiredToken)
-        {
-          this.router.navigate(['/']);
-          alert(errorMsg);
-        }
+        this.errorHandleS.setErrorMessage(errorMsg);
         return throwError(err); 
       }),
     );

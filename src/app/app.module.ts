@@ -1,16 +1,11 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {LoginComponent} from './login/login.component';
-
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-
-
 import {HttpClientModule} from '@angular/common/http';
-
 import {CookieService} from 'ngx-cookie-service';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {SettingsComponent} from './settings/settings.component';
@@ -18,15 +13,14 @@ import {TasksComponent} from './tasks/tasks.component';
 import {UsersComponent} from './users/users.component';
 import {MaterialModule} from './material-module';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
-import {TokenInterceptor} from './interceptors/token.interceptor'; 
-import {ErrorHandleInterceptor} from './interceptors/errorHandle.interceptor';
-import {SpinnerInterceptor} from './interceptors/spinner.interceptor';
-import {LoaderComponent} from './loader/loader.component';
-import { DialogDeleteConfirmComponent } from './dialog-delete-confirm/dialog-delete-confirm.component';
-import { UserEditComponent } from './user-edit/user-edit.component';
-import { UserCreateComponent } from './user-create/user-create.component';
-import { ErrorHandleComponent } from './shared/components/error-handle/error-handle.component';
-
+import {TokenInterceptor} from './api/interceptors/token.interceptor'; 
+import {ErrorHandleInterceptor} from './api/interceptors/errorHandle.interceptor';
+import {SpinnerInterceptor} from './api/interceptors/spinner.interceptor';
+import {LoaderComponent} from './shared/components/loader/loader.component';
+import {DialogDeleteConfirmComponent} from './dialog-delete-confirm/dialog-delete-confirm.component';
+import {UserEditComponent} from './user-edit/user-edit.component';
+import {UserCreateComponent} from './user-create/user-create.component';
+import {ErrorHandleComponent} from './shared/components/error-handle/error-handle.component';
 
 @NgModule({
   declarations: [

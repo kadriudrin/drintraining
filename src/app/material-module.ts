@@ -14,6 +14,7 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatSelectModule} from '@angular/material/select';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   exports: [
@@ -31,6 +32,7 @@ import {MatSelectModule} from '@angular/material/select';
     MatDialogModule,
     MatTabsModule,
     MatSelectModule,
+    MatCheckboxModule,
     MatInputModule
   ]
 })

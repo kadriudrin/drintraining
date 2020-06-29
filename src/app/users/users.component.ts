@@ -1,9 +1,9 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {UsersService} from '../api/users/users.service';
+import {UserService} from '../api/users/users.service';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort, Sort} from '@angular/material/sort';
-import {Users} from '../api/users/user.model';
+import {UserModel} from '../api/users/user.model';
 import {startWith, map, tap, delay} from 'rxjs/operators';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogDeleteConfirmComponent} from '../dialog-delete-confirm/dialog-delete-confirm.component';
@@ -17,12 +17,12 @@ import {UserCreateComponent} from '../user-create/user-create.component';
 })
 export class UsersComponent implements OnInit, AfterViewInit {
 
-  userList: MatTableDataSource<Users> = new MatTableDataSource<Users>();
+  userList: MatTableDataSource<UserModel> = new MatTableDataSource<UserModel>();
   displayedColumns: string[] = ['id', 'pic', 'name', 'surname', 'email', 'phone', 'role', 'created at', 'edit', 'delete'];
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  constructor(private userService: UsersService, private dialog : MatDialog) {}
+  constructor(private userService: UserService, private dialog : MatDialog) {}
 
   applyFilter(filterValue: string) { this.userList.filter = filterValue.toLowerCase(); }
 
@@ -72,9 +72,9 @@ export class UsersComponent implements OnInit, AfterViewInit {
   }
 
   async getUserData() {
-    await this.userService.getUsers()
+    await this.userService.getUserModel()
       .pipe(
-        map((response: Users[]) => {
+        map((response: UserModel[]) => {
         response.sort((a, b) => {
           return new Date(a.created_at).getTime() < new Date(b.created_at).getTime() ? 1 : -1;
         });
@@ -83,7 +83,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
   }
 
   sortData() {
-    this.userList.sortingDataAccessor = (item: Users, property) => {
+    this.userList.sortingDataAccessor = (item: UserModel, property) => {
       switch (property) {
         case 'surname':
           return item.profile.surname;

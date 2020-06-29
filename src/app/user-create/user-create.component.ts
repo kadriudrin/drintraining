@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Users} from '../api/users/user.model';
-import {UsersService} from '../api/users/users.service';
+import {UserModel} from '../api/users/user.model';
+import {UserService} from '../api/users/users.service';
+import {confirmPassword} from '../shared/validators/confirmPassword.validator';
 
 @Component({
   selector: 'app-user-create',
@@ -12,11 +13,11 @@ export class UserCreateComponent implements OnInit {
 
   myForm: FormGroup;
 
-  constructor(private fb : FormBuilder, private userS : UsersService) { }
+  constructor(private fb : FormBuilder, private userS : UserService) { }
 
   createUser(){
     // Needs proper constructor
-    let newUser: Users;
+    let newUser: UserModel;
     newUser.name = this.myForm.value.name;
     newUser.profile.surname = this.myForm.value.surname;
     newUser.email = this.myForm.value.email;
@@ -48,8 +49,10 @@ export class UserCreateComponent implements OnInit {
         role: [, [Validators.required]],
         email: [, [Validators.required, Validators.email]], 
         profile: [, [Validators.required]],
-        //password: [, Validators.required], 
-        //confirmPassword: [, Validators.required], 
+        password: [, [Validators.required]], 
+        confirmPassword: [, [Validators.required, confirmPassword]],
+        country: [, [Validators.required]],
+        is_active_account: [, [Validators.required]],
       }
     );
   }

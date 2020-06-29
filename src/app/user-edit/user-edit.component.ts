@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Users} from '../api/users/user.model';
-import {UsersService} from '../api/users/users.service';
+import {UserModel} from '../api/users/user.model';
+import {UserService} from '../api/users/users.service';
 import {Observable} from 'rxjs';
 import {map, filter, tap} from 'rxjs/operators';
 import {ActivatedRoute} from '@angular/router';
@@ -9,6 +9,7 @@ import {dateFormatter} from '../shared/date.formatter';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogDeleteConfirmComponent} from '../dialog-delete-confirm/dialog-delete-confirm.component';
 import {AuthenticationService} from '../api/authentication/authentication.service';
+import {confirmPassword} from '../shared/validators/confirmPassword.validator';
 
 @Component({
   selector: 'app-user-edit',
@@ -19,7 +20,7 @@ export class UserEditComponent implements OnInit {
 
   myForm: FormGroup;
 
-  user: Users;
+  user: UserModel;
 
   loaded: boolean = false;
 
@@ -27,7 +28,7 @@ export class UserEditComponent implements OnInit {
 
   public isAdmin : boolean = false;
 
-  constructor(private fb : FormBuilder, private userS : UsersService, private route : ActivatedRoute, private dialog: MatDialog, private auth : AuthenticationService) { }
+  constructor(private fb : FormBuilder, private userS : UserService, private route : ActivatedRoute, private dialog: MatDialog, private auth : AuthenticationService) { }
 
   editHandle(){
     // PATCH request to change values
@@ -68,8 +69,10 @@ export class UserEditComponent implements OnInit {
         role: [this.user.role, [Validators.required]],
         email: [this.user.email, [Validators.required, Validators.email]], 
         profile: [this.user.profile.profileUrl, [Validators.required]],
-        //password: [, Validators.required], 
-        //confirmPassword: [, Validators.required], 
+        password: [, [confirmPassword]], 
+        confirmPassword: [, [confirmPassword]],
+        country: [this.user.location.country, [Validators.required]],
+        is_active_account: [this.user.is_active_account, [Validators.required]],
       }
     );
   }

@@ -1,7 +1,7 @@
 import {LocationModel} from '../location/location.model';
 import {ProfileModel} from '../profile/profile.model';
 
-export interface Users {
+export interface UserModel {
   created_at: string;
   email: string;
   id: number;

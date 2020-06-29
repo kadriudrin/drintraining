@@ -40,6 +40,22 @@
             <mat-error>Role is required</mat-error>
           </mat-form-field>
 
+          <mat-form-field class="formElement">
+            <input matInput placeholder="Country" formControlName="country">
+            <mat-error>Country is required</mat-error>
+          </mat-form-field>
+  
+          <mat-form-field class="formElement">
+            <input matInput placeholder="Password" type="password" formControlName="password">
+            <mat-error>Valid password is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="formElement">
+            <input matInput placeholder="Confirm Password" type="password" formControlName="confirmPassword">
+            <mat-error>Valid password confirmation is required</mat-error>
+          </mat-form-field>
+
+          <mat-checkbox formControlName="is_active_account">Active account</mat-checkbox>
 
           <div class="space"></div>
 						<button type="submit" mat-dialog-close [disabled]="!myForm.valid" class="createButton" mat-flat-button color="primary">Create</button>

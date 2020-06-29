@@ -59,7 +59,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
         data.role.toLowerCase() +
         data.profile.name.toLowerCase() +
         data.profile.surname.toLowerCase() +
-        data.profile.phoneNumber + data.id;
+        data.profile.phoneNumber + data.id +
+        dateFormatter(data.created_at);
       let chunks = filter.match(/\S+/g);
       let ret : boolean = false;
       chunks.every((i) => { 

@@ -1,0 +1,49 @@
+<h2 class="title" mat-dialog-subtitle>Create new user</h2>
+<div class="editDiv">
+  <app-error-handle></app-error-handle>
+	<div class="grouplessDiv">
+      <div class="space"></div> 
+			<form [formGroup]="myForm" class="editForm" (ngSubmit)="createUser()">
+          <img *ngIf="myForm.value.profile" [src]="myForm.value.profile" class="profilePic">
+          <div class="space"></div> 
+          <button type="button" class="fileUpload" mat-flat-button (click)="fileInput.click()" color="primary">
+            Upload
+          <input #fileInput type='file' (change)="onSelectFile($event)" style="display:none;">
+          </button>
+          <div class="space"></div> 
+          <mat-form-field class="halfFormElement">
+            <input matInput placeholder="Name" formControlName="name">
+            <mat-error>Name is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="halfFormElement">
+            <input matInput placeholder="Surname" formControlName="surname">
+            <mat-error>Surname is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="halfFormElement">
+            <input matInput placeholder="Email" formControlName="email">
+            <mat-error>Valid email is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="formElement">
+            <input matInput placeholder="Number" formControlName="number">
+            <mat-error>Valid number is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="formElement">
+            <mat-label>Role</mat-label>
+            <mat-select formControlName="role">
+              <mat-option [value]="'staff'">Staff</mat-option>
+              <mat-option [value]="'staff_head'">Staff Head</mat-option>
+            </mat-select> 
+            <mat-error>Role is required</mat-error>
+          </mat-form-field>
+
+
+          <div class="space"></div>
+						<button type="submit" mat-dialog-close [disabled]="!myForm.valid" class="createButton" mat-flat-button color="primary">Create</button>
+						<button mat-dialog-close type="button" class="cancelButton" mat-flat-button color="warn">Cancel</button>
+			</form>
+    </div>
+</div>

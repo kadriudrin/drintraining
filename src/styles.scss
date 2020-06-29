@@ -7,4 +7,23 @@ html, body, app-root, .app-frame {
     color: #e0e0e0;
 }
 
+.dialogPanel .mat-dialog-container {
+    overflow: hidden;
+    width: 325px;
+    height: 210px;
+    border-radius: 50px;
+	  display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.createDialogPanel .mat-dialog-container {
+  overflow: hidden;
+  border-radius: 50px;
+  display: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 body { font-family: Roboto, "Helvetica Neue", sans-serif; }

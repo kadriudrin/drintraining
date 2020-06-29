@@ -19,8 +19,6 @@ export class LoginComponent implements OnInit {
 
   errorMsg: string = '';
 
-  failed: boolean = false;
-
   successUrl: string = 'home';
 
   constructor(private fb: FormBuilder, private auth: AuthenticationService, private router: Router) {
@@ -41,7 +39,6 @@ export class LoginComponent implements OnInit {
 
   failure(error: any) {
     this.errorMsg = error.error.message;
-    this.failed = true;
   }
 
   loginHandle() {

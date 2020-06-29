@@ -1,0 +1,60 @@
+.editDiv{
+	display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90%;
+}
+
+.tabGroup {
+  width: 100%; 
+	border-radius: 50px;
+}
+
+.grouplessDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.editCard {
+  padding: 16px;
+  width: 400px;
+	border-radius: 50px;
+  text-align: center;
+}
+
+.editForm {
+}
+
+.space {
+  padding-top: 15px;
+}
+
+.profilePic {
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+}
+
+.fileUpload {
+  width: 30%;
+  border-radius: 20px;
+}
+
+.halfFormElement{
+  width: 70%;
+}
+
+.formElement{
+	width: 70%;
+}
+
+.saveButton, .revertButton, .usersButton, .deleteButton {
+	width: 30%;
+	border-radius: 20px;
+	margin: 0 5px 10px 5px;
+}
+
+.deleteButton {
+  width: 70%;
+}

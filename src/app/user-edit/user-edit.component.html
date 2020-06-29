@@ -1,0 +1,73 @@
+<div *ngIf="myForm" class="editDiv">
+<mat-card class="editCard">
+  <app-error-handle></app-error-handle>
+  <mat-tab-group class="tabGroup" animationDuration="700ms" dynamicHeight="true" mat-stretch-tabs>
+    <div class="grouplessDiv">
+    <mat-tab label="Profile">
+      <div class="space"></div>
+      <form [formGroup]="myForm" class="editForm" (ngSubmit)="editHandle()">
+          <img *ngIf="myForm.value.profile" [src]="myForm.value.profile" class="profilePic">
+          <div class="space"></div> 
+          <button type="button" class="fileUpload" mat-flat-button (click)="fileInput.click()" color="primary">
+            Upload
+          <input #fileInput type='file' (change)="onSelectFile($event)" style="display:none;">
+          </button>
+          <div class="space"></div> 
+          <mat-form-field class="halfFormElement">
+            <input matInput placeholder="Name" formControlName="name">
+            <mat-error>Name is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="halfFormElement">
+            <input matInput placeholder="Surname" formControlName="surname">
+            <mat-error>Surname is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="formElement">
+            <input matInput placeholder="Number" formControlName="number">
+            <mat-error>Valid number is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="formElement">
+            <mat-label>Role</mat-label>
+            <mat-select formControlName="role">
+              <mat-option [value]="'staff'">Staff</mat-option>
+              <mat-option [value]="'staff_head'">Staff Head</mat-option>
+            </mat-select> 
+            <mat-error>Role is required</mat-error>
+          </mat-form-field>
+          <div class="space"></div>
+          <button [disabled]="!myForm.valid" class="saveButton" mat-flat-button color="accent">Save</button>
+          <button class="revertButton" mat-flat-button color="warn" type="button" (click)="revertForm()">Revert</button>
+          <button class="usersButton" mat-flat-button type="button" color="primary" [routerLink]="'/users'">All Users</button>
+      </form>
+    </mat-tab>
+    <mat-tab label="Account">
+      <div class="space"></div>
+      <form [formGroup]="myForm" class="editForm" (ngSubmit)="editHandle()">
+          <mat-form-field class="halfFormElement">
+            <input matInput placeholder="Email" formControlName="email">
+            <mat-error>Valid email is required</mat-error>
+          </mat-form-field>
+          <div class="space"></div>
+          <button class="deleteButton" mat-flat-button color="warn" type="button" (click)="deleteUser()">Delete User</button>
+        <!--
+          <mat-form-field class="halfFormElement">
+            <input matInput placeholder="Password" formControlName="password" type="password">
+            <mat-error>Valid password is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="formElement">
+            <input matInput placeholder="Confirm Password" formControlName="confirmPassword" type="password">
+            <mat-error>Valid password confirmation is required</mat-error>
+          </mat-form-field>
+        -->
+          <div class="space"></div>
+          <button [disabled]="!myForm.valid" class="saveButton" mat-flat-button color="accent">Save</button>
+          <button class="revertButton" mat-flat-button color="warn" type="button" (click)="revertForm()">Revert</button>
+          <button class="usersButton" mat-flat-button type="button" color="primary" [routerLink]="'/users'">All Users</button>
+      </form>    </mat-tab>
+    </div>
+  </mat-tab-group> 
+</mat-card>
+</div>

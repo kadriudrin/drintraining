@@ -5,6 +5,10 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort, Sort} from '@angular/material/sort';
 import {Users} from '../api/users/user.model';
 import {startWith, map, tap, delay} from 'rxjs/operators';
+import {MatDialog} from '@angular/material/dialog';
+import {DialogDeleteConfirmComponent} from '../dialog-delete-confirm/dialog-delete-confirm.component';
+import {dateFormatter} from '../shared/date.formatter';
+import {UserCreateComponent} from '../user-create/user-create.component';
 
 @Component({
   selector: 'app-users',
@@ -18,20 +22,31 @@ export class UsersComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  constructor(private userService: UsersService) {
+  constructor(private userService: UsersService, private dialog : MatDialog) {}
+
+  applyFilter(filterValue: string) { this.userList.filter = filterValue.toLowerCase(); }
+
+  dateFormatterU(s){
+    return dateFormatter(s);
   }
 
-  applyFilter(filterValue: string) {
-    this.userList.filter = filterValue.toLowerCase();
+  ngOnInit(): void { this.getUserData(); }
+
+  openCreateDialog(){
+    const dialogRef = this.dialog.open(UserCreateComponent, {panelClass: 'createDialogPanel'});
   }
 
-  ngOnInit(): void {
-    this.getUserData();
+  editUser(){
+
   }
 
-  dateFormatter(dt: string) {
-    const d: Date = new Date(dt);
-    return d.toLocaleString().split(',')[0].replace(/\//g, "-");
+  deleteUser(usr){
+    this.userService.deleteUser(usr);
+  }
+
+  openDeleteDialog(usr){
+    const dialogRef = this.dialog.open(DialogDeleteConfirmComponent, {data: usr, panelClass: 'dialogPanel'});
+    dialogRef.afterClosed().subscribe(result => { if (result) this.deleteUser(usr); });
   }
 
   ngAfterViewInit() {
@@ -47,8 +62,9 @@ export class UsersComponent implements OnInit, AfterViewInit {
         data.profile.phoneNumber + data.id;
       let chunks = filter.match(/\S+/g);
       let ret : boolean = false;
-      chunks.forEach((i, x) => { 
+      chunks.every((i) => { 
         ret = dataStr.indexOf(i) !== -1;
+        return ret;
       });
       return ret;
     };
@@ -79,6 +95,4 @@ export class UsersComponent implements OnInit, AfterViewInit {
       }
     };
   }
-
-
 }

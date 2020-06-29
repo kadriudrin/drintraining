@@ -1,0 +1,57 @@
+.title {
+	text-align: center;
+}
+
+.editDiv{
+	display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90%;
+  padding: 16px;
+  width: 300px;
+	border-radius: 100px;
+  text-align: center;
+}
+
+.tabGroup {
+  width: 100%; 
+	border-radius: 50px;
+}
+
+.grouplessDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.editForm {
+}
+
+.space {
+  padding-top: 15px;
+}
+
+.profilePic {
+  width: 150px;
+  height: 150px;
+  border-radius: 100px;
+}
+
+.fileUpload {
+  width: 50%;
+  border-radius: 50px;
+}
+
+.halfFormElement{
+  width: 80%;
+}
+
+.formElement{
+	width: 80%;
+}
+
+.createButton, .cancelButton {
+	width: 40%;
+	border-radius: 50px;
+	margin: 0 5px 10px 5px;
+}

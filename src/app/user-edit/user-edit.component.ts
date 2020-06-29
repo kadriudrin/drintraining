@@ -8,6 +8,7 @@ import {ActivatedRoute} from '@angular/router';
 import {dateFormatter} from '../shared/date.formatter';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogDeleteConfirmComponent} from '../dialog-delete-confirm/dialog-delete-confirm.component';
+import {AuthenticationService} from '../api/authentication/authentication.service';
 
 @Component({
   selector: 'app-user-edit',
@@ -24,7 +25,9 @@ export class UserEditComponent implements OnInit {
 
   id: number;
 
-  constructor(private fb : FormBuilder, private userS : UsersService, private route : ActivatedRoute, private dialog: MatDialog) { }
+  public isAdmin : boolean = false;
+
+  constructor(private fb : FormBuilder, private userS : UsersService, private route : ActivatedRoute, private dialog: MatDialog, private auth : AuthenticationService) { }
 
   editHandle(){
     // PATCH request to change values
@@ -76,7 +79,12 @@ export class UserEditComponent implements OnInit {
   }
 
   async getUser(){
-    await this.route.paramMap.subscribe(params => this.id = +params.get('id'));
-    await this.userS.getUser(this.id).subscribe(res => { this.user = res; this.buildForm(); });  
+    if (this.isAdmin){
+      //this.user = this.auth.currentUserValue
+    }
+    else {
+      await this.route.paramMap.subscribe(params => this.id = +params.get('id'));
+      await this.userS.getUser(this.id).subscribe(res => { this.user = res; this.buildForm(); });  
+    }
   }
 }

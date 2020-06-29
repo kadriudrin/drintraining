@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import {Router, NavigationStart} from '@angular/router';
+import {filter} from  'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -15,5 +17,7 @@ export class ErrorHandleService {
     return this.errorMessage;
   }
 
-  constructor() { }
+  constructor(private r: Router) { 
+    r.events.pipe(filter(ev => ev instanceof NavigationStart)).subscribe(v => this.errorMessage = "");
+  }
 }

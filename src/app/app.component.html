@@ -13,7 +13,7 @@
 		<div><button mat-menu-item [routerLink]="['/tasks']"><mat-icon>list</mat-icon>Tasks</button></div>
 </mat-menu>
 
-<div *ngIf="loader.loading" class="cntr">
+<div *ngIf="loader.get()" class="cntr">
 <app-loader></app-loader>
 </div>
 

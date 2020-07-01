@@ -1,4 +1,4 @@
-export interface ProfileModel {
+export class ProfileModel {
   description: string;
   id: number;
   name: string;
@@ -12,4 +12,8 @@ export interface ProfileModel {
   activity_color: string;
   profile_background_color: string;
   profile_color: string;
+
+  public constructor(init?:Partial<ProfileModel>){
+    Object.assign(this, init);
+  }
 }

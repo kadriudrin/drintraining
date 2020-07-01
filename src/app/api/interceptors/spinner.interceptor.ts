@@ -10,14 +10,12 @@ export class SpinnerInterceptor implements HttpInterceptor {
   constructor(public auth: AuthenticationService, private loader : LoaderService) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    this.loader.set(true);
-    console.log("SPIN START");
+    setTimeout(() => { this.loader.set(true) });
     return next.handle(request)
     .pipe(
       tap({
-        error : error => { console.log("SPIN ERROR"); this.loader.set(false); },
-        complete : () => { console.log("SPIN COMPLETE"); this.loader.set(false); }
-      }
-    ));
+        complete: () => setTimeout(() => { this.loader.set(false) })
+      })
+    );
   }
 }

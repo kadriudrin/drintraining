@@ -9,7 +9,7 @@ import {dateFormatter} from '../shared/date.formatter';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogDeleteConfirmComponent} from '../dialog-delete-confirm/dialog-delete-confirm.component';
 import {AuthenticationService} from '../api/authentication/authentication.service';
-import {confirmPassword} from '../shared/validators/confirmPassword.validator';
+import {confirmPasswordValidator} from '../shared/validators/confirmPassword.validator';
 
 @Component({
   selector: 'app-user-edit',
@@ -31,8 +31,10 @@ export class UserEditComponent implements OnInit {
   constructor(private fb : FormBuilder, private userS : UserService, private route : ActivatedRoute, private dialog: MatDialog, private auth : AuthenticationService) { }
 
   editHandle(){
-    // PATCH request to change values
-    console.log(this.myForm.value);
+    let id = this.user.id;
+    this.user = this.myForm.value; 
+    console.log("Usr: ", this.user); 
+    this.userS.editUser(this.user, id).subscribe(res => console.log("EditUser Res: ", res), err => console.error("EditUser Err: ", err)); 
   }
 
   revertForm(){
@@ -55,7 +57,7 @@ export class UserEditComponent implements OnInit {
       reader.readAsDataURL(event.target.files[0]); // read file as data url
 
       reader.onload = (event) => { // called once readAsDataURL is completed
-        this.myForm.patchValue({ profile: event.target.result.toString() });
+        this.myForm.patchValue({ profile: { profileUrl: event.target.result.toString() } });
       }
     }
   }
@@ -64,15 +66,23 @@ export class UserEditComponent implements OnInit {
     this.myForm = this.fb.group(
       {
         name: [this.user.name, Validators.required], 
-        surname: [this.user.profile.surname, Validators.required],
-        number: [this.user.profile.phoneNumber, [Validators.required, Validators.pattern("^[0-9]*$")]],
         role: [this.user.role, [Validators.required]],
         email: [this.user.email, [Validators.required, Validators.email]], 
-        profile: [this.user.profile.profileUrl, [Validators.required]],
-        password: [, [confirmPassword]], 
-        confirmPassword: [, [confirmPassword]],
-        country: [this.user.location.country, [Validators.required]],
+        password: ['', [confirmPasswordValidator(this.id)]], 
+        confirmPassword: ['', [confirmPasswordValidator]],
         is_active_account: [this.user.is_active_account, [Validators.required]],
+
+        number: [this.user.profile.phoneNumber, [Validators.required, Validators.pattern("^[0-9]*$")]],
+        profileUrl: [this.user.profile.profileUrl, [Validators.required]],
+        surname: [this.user.profile.surname, Validators.required],
+
+        country: [this.user.location.country, [Validators.required]],
+        city: [this.user.location.city, [Validators.required]],
+        state: [this.user.location.state, []],
+        street: [this.user.location.street, [Validators.required]],
+        zip: [this.user.location.zip, [Validators.required]],
+        lat: [this.user.location.lat, []],
+        long: [this.user.location.long, []],
       }
     );
   }

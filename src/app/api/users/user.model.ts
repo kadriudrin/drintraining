@@ -1,7 +1,7 @@
 import {LocationModel} from '../location/location.model';
 import {ProfileModel} from '../profile/profile.model';
 
-export interface UserModel {
+export class UserModel {
   created_at: string;
   email: string;
   id: number;
@@ -12,6 +12,10 @@ export interface UserModel {
   role: string;
   session: any;
   updated_at: string;
-  full_name: string;
+  full_name: string;  
+  
+  public constructor(init?:Partial<UserModel>){
+    Object.assign(this, init);
+  }
 }
 

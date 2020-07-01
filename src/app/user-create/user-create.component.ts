@@ -2,7 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserModel} from '../api/users/user.model';
 import {UserService} from '../api/users/users.service';
-import {confirmPassword} from '../shared/validators/confirmPassword.validator';
+import {confirmPasswordValidator} from '../shared/validators/confirmPassword.validator';
+import {ProfileModel} from '../api/profile/profile.model';
 
 @Component({
   selector: 'app-user-create',
@@ -13,19 +14,16 @@ export class UserCreateComponent implements OnInit {
 
   myForm: FormGroup;
 
-  constructor(private fb : FormBuilder, private userS : UserService) { }
+  constructor(private fb: FormBuilder, private userService: UserService) { }
 
   createUser(){
-    // Needs proper constructor
-    let newUser: UserModel;
-    newUser.name = this.myForm.value.name;
-    newUser.profile.surname = this.myForm.value.surname;
-    newUser.email = this.myForm.value.email;
-    newUser.profile.phoneNumber = this.myForm.value.phone;
-    newUser.role = this.myForm.value.role;
-    newUser.profile.profileUrl = this.myForm.value.profile;
-    
-    console.log("Created New User: ", newUser);
+    let newUser : UserModel = new UserModel({ 
+      name: this.myForm.value.name,
+      email: this.myForm.value.email,
+      role: this.myForm.value.role,
+      profile: new ProfileModel({ surname: this.myForm.value.surname, phoneNumber: this.myForm.value.phone, profileUrl: this.myForm.value.profile }),
+    });
+    this.userService.createUser(newUser).subscribe(res => console.log("Res: ", res), err => console.error("Err: ", err));
   }
 
   onSelectFile(event) { // called each time file input changes
@@ -43,16 +41,16 @@ export class UserCreateComponent implements OnInit {
   buildForm(){
     this.myForm = this.fb.group(
       {
-        name: [, Validators.required], 
-        surname: [, Validators.required],
-        number: [, [Validators.required, Validators.pattern("^[0-9]*$")]],
-        role: [, [Validators.required]],
-        email: [, [Validators.required, Validators.email]], 
-        profile: [, [Validators.required]],
-        password: [, [Validators.required]], 
-        confirmPassword: [, [Validators.required, confirmPassword]],
-        country: [, [Validators.required]],
-        is_active_account: [, [Validators.required]],
+        name: ['d', Validators.required], 
+        surname: ['d', Validators.required],
+        number: [43, [Validators.required, Validators.pattern("^[0-9]*$")]],
+        role: ['staff', [Validators.required]],
+        email: ['d@d.d', [Validators.required, Validators.email]], 
+        profile: ['lesh', [Validators.required]],
+        password: ['a', [Validators.required]], 
+        confirmPassword: ['a', [Validators.required, confirmPasswordValidator]],
+        country: ['d', [Validators.required]],
+        is_active_account: [, []],
       }
     );
   }

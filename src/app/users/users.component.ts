@@ -41,12 +41,12 @@ export class UsersComponent implements OnInit, AfterViewInit {
   }
 
   deleteUser(usr){
-    this.userService.deleteUser(usr);
+    this.userService.deleteUser(usr).subscribe(res => console.log("DEL RES: ", res), err => console.error("DEL ERR: ", err));
   }
 
   openDeleteDialog(usr){
     const dialogRef = this.dialog.open(DialogDeleteConfirmComponent, {data: usr, panelClass: 'dialogPanel'});
-    dialogRef.afterClosed().subscribe(result => { if (result) this.deleteUser(usr); });
+    dialogRef.afterClosed().subscribe(result => { if (result == "true") { this.deleteUser(usr); } });
   }
 
   ngAfterViewInit() {
@@ -72,7 +72,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
   }
 
   async getUserData() {
-    await this.userService.getUserModel()
+    await this.userService.getUsers()
       .pipe(
         map((response: UserModel[]) => {
         response.sort((a, b) => {

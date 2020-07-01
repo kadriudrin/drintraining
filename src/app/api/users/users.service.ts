@@ -18,16 +18,17 @@ export class UserService {
   constructor(private http: HttpClient, private auth: AuthenticationService) {
   }
 
-  createUser(usr : UserModel){
+  createUser(usr): Observable<UserModel>{
     console.log("Created New User: ", usr);
     return this.http.post<UserModel>(this.baseApi + '/users', usr);
   }
 
-  editUser(usr : UserModel, id): Observable<UserModel>{
+  editUser(usr, id): Observable<UserModel>{
     return this.http.put<UserModel>(this.apiUrl + '/' + id, usr); 
   }
 
-  deleteUser(usr : UserModel): Observable<any> {
+  deleteUser(usr): Observable<any> {
+    console.log("Deleting: ", usr);
     return this.http.delete(this.apiUrl + '/' + usr.id);
   }
 
@@ -35,7 +36,7 @@ export class UserService {
     return this.http.get<UserModel>(this.apiUrl + '/' + id);
   }
 
-  getUserModel(): Observable<UserModel[]> {
+  getUsers(): Observable<UserModel[]> {
     return this.http.get<UserModel[]>(this.apiUrl);
   }
 }

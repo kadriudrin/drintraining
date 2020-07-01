@@ -17,12 +17,8 @@ export class UserCreateComponent implements OnInit {
   constructor(private fb: FormBuilder, private userService: UserService) { }
 
   createUser(){
-    let newUser : UserModel = new UserModel({ 
-      name: this.myForm.value.name,
-      email: this.myForm.value.email,
-      role: this.myForm.value.role,
-      profile: new ProfileModel({ surname: this.myForm.value.surname, phoneNumber: this.myForm.value.phone, profileUrl: this.myForm.value.profile }),
-    });
+    let newUser = this.myForm.value;
+    newUser.profileUrl = "https://upload.wikimedia.org/wikipedia/commons/6/6d/Windows_Settings_app_icon.png";
     this.userService.createUser(newUser).subscribe(res => console.log("Res: ", res), err => console.error("Err: ", err));
   }
 
@@ -41,16 +37,18 @@ export class UserCreateComponent implements OnInit {
   buildForm(){
     this.myForm = this.fb.group(
       {
-        name: ['d', Validators.required], 
-        surname: ['d', Validators.required],
-        number: [43, [Validators.required, Validators.pattern("^[0-9]*$")]],
+        name: ['MOT', Validators.required], 
         role: ['staff', [Validators.required]],
-        email: ['d@d.d', [Validators.required, Validators.email]], 
-        profile: ['lesh', [Validators.required]],
-        password: ['a', [Validators.required]], 
-        confirmPassword: ['a', [Validators.required, confirmPasswordValidator]],
-        country: ['d', [Validators.required]],
-        is_active_account: [, []],
+        email: ['l@l.l', [Validators.required, Validators.email]], 
+
+        phoneNumber: ['3213213', [Validators.required, Validators.pattern("^[0-9]*$")]],
+        surname: ['hey', Validators.required],
+        profileUrl: ['null', [Validators.required]],
+      
+        password: ['', [Validators.required, confirmPasswordValidator]], 
+        confirmPassword: ['', [Validators.required, confirmPasswordValidator]],
+        country: ['Maceee', [Validators.required]],
+        is_active_account: [true, []],
       }
     );
   }

@@ -68,7 +68,7 @@ export class UserEditComponent implements OnInit {
         name: [this.user.name, Validators.required], 
         role: [this.user.role, [Validators.required]],
         email: [this.user.email, [Validators.required, Validators.email]], 
-        password: ['', [confirmPasswordValidator(this.id)]], 
+        password: ['', [confirmPasswordValidator]], 
         confirmPassword: ['', [confirmPasswordValidator]],
         is_active_account: [this.user.is_active_account, [Validators.required]],
 

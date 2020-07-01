@@ -14,14 +14,6 @@ export class ErrorHandleInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError(err => {
         let errorMsg = `Error: ${err.error.message}`;
-        let expiredToken : boolean = false; 
-        
-        if (err instanceof HttpErrorResponse) {
-          if (err.status === 401) {
-            this.auth.logout();
-            expiredToken = true;
-          }
-        }
         this.errorHandleS.setErrorMessage(errorMsg);
         return throwError(err); 
       }),

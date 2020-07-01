@@ -14,6 +14,7 @@ export class SpinnerInterceptor implements HttpInterceptor {
     return next.handle(request)
     .pipe(
       tap({
+        error: err => setTimeout(() =>  { this.loader.set(false) }),
         complete: () => setTimeout(() => { this.loader.set(false) })
       })
     );

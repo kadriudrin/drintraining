@@ -41,9 +41,9 @@ export class UserCreateComponent implements OnInit {
         role: ['staff', [Validators.required]],
         email: ['l@l.l', [Validators.required, Validators.email]], 
 
-        phoneNumber: ['3213213', [Validators.required, Validators.pattern("^[0-9]*$")]],
+        phoneNumber: [3213213, [Validators.required, Validators.pattern("^[0-9]*$")]],
         surname: ['hey', Validators.required],
-        profileUrl: ['null', [Validators.required]],
+        profileUrl: ['https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Google_Contacts_icon.svg/1024px-Google_Contacts_icon.svg.png', [Validators.required]],
       
         password: ['', [Validators.required, confirmPasswordValidator]], 
         confirmPassword: ['', [Validators.required, confirmPasswordValidator]],

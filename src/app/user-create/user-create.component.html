@@ -58,8 +58,8 @@
           <mat-checkbox formControlName="is_active_account">Active account</mat-checkbox>
 
           <div class="space"></div>
-						<button type="submit" mat-dialog-close [disabled]="!myForm.valid" class="createButton" mat-flat-button color="primary">Create</button>
-						<button mat-dialog-close type="button" class="cancelButton" mat-flat-button color="warn">Cancel</button>
+						<button type="submit" mat-dialog-close="create" [disabled]="!myForm.valid" class="createButton" mat-flat-button color="primary">Create</button>
+						<button mat-dialog-close="cancel" type="button" class="cancelButton" mat-flat-button color="warn">Cancel</button>
 			</form>
     </div>
 </div>

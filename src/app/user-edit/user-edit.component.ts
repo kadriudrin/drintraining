@@ -4,7 +4,7 @@ import {UserModel} from '../api/users/user.model';
 import {UserService} from '../api/users/users.service';
 import {Observable} from 'rxjs';
 import {map, filter, tap} from 'rxjs/operators';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {dateFormatter} from '../shared/date.formatter';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogDeleteConfirmComponent} from '../dialog-delete-confirm/dialog-delete-confirm.component';
@@ -28,7 +28,7 @@ export class UserEditComponent implements OnInit {
 
   public isAdmin : boolean = false;
 
-  constructor(private fb : FormBuilder, private userS : UserService, private route : ActivatedRoute, private dialog: MatDialog, private auth : AuthenticationService) { }
+  constructor(private fb : FormBuilder, private userS : UserService, private route : ActivatedRoute, private dialog: MatDialog, private auth : AuthenticationService, private router: Router) { }
 
   editHandle(){
     let id = this.user.id;
@@ -42,12 +42,12 @@ export class UserEditComponent implements OnInit {
   }
 
   deleteUser(){
-    this.userS.deleteUser(this.user);
+    this.userS.deleteUser(this.user).subscribe(res => this.router.navigate(['/users']));
   }
 
   openDeleteDialog(){
     const dialogRef = this.dialog.open(DialogDeleteConfirmComponent, {data: this.user, panelClass: 'dialogPanel'});
-    dialogRef.afterClosed().subscribe(result => { if (result) this.deleteUser(); });
+    dialogRef.afterClosed().subscribe(result => { if (result == "true") { this.deleteUser(); } });
   }
 
   onSelectFile(event) { // called each time file input changes

@@ -1,52 +1,85 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {UserService} from '../api/users/users.service';
-import {MatTableDataSource} from '@angular/material/table';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort, Sort} from '@angular/material/sort';
-import {UserModel} from '../api/users/user.model';
-import {startWith, map, tap, delay} from 'rxjs/operators';
-import {MatDialog} from '@angular/material/dialog';
-import {DialogDeleteConfirmComponent} from '../dialog-delete-confirm/dialog-delete-confirm.component';
-import {dateFormatter} from '../shared/date.formatter';
-import {UserCreateComponent} from '../user-create/user-create.component';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { UserService } from "../api/users/users.service";
+import { MatTableDataSource } from "@angular/material/table";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { UserModel } from "../api/users/user.model";
+import { map } from "rxjs/operators";
+import { MatDialog } from "@angular/material/dialog";
+import { DialogDeleteConfirmComponent } from "../dialog-delete-confirm/dialog-delete-confirm.component";
+import { dateFormatter } from "../shared/date.formatter";
+import { UserCreateComponent } from "../user-create/user-create.component";
 
 @Component({
-  selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss']
+  selector: "app-users",
+  templateUrl: "./users.component.html",
+  styleUrls: ["./users.component.scss"],
 })
 export class UsersComponent implements OnInit, AfterViewInit {
-
   userList: MatTableDataSource<UserModel> = new MatTableDataSource<UserModel>();
-  displayedColumns: string[] = ['id', 'pic', 'name', 'surname', 'email', 'phone', 'role', 'created at', 'edit', 'delete'];
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  displayedColumns: string[] = [
+    "id",
+    "pic",
+    "name",
+    "surname",
+    "email",
+    "phone",
+    "role",
+    "created at",
+    "edit",
+    "delete",
+  ];
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private userService: UserService, private dialog : MatDialog) {}
+  constructor(private userService: UserService, private dialog: MatDialog) {}
 
-  applyFilter(filterValue: string) { this.userList.filter = filterValue.toLowerCase(); }
+  applyFilter(filterValue: string) {
+    this.userList.filter = filterValue.toLowerCase();
+  }
 
-  dateFormatterU(s){
+  dateFormatterU(s: string) {
     return dateFormatter(s);
   }
 
-  ngOnInit(): void { this.getUserData(); }
-
-  openCreateDialog(){
-    const dialogRef = this.dialog.open(UserCreateComponent, {panelClass: 'createDialogPanel'});
+  ngOnInit(): void {
+    this.getUserData();
   }
 
-  editUser(){
-
+  openCreateDialog() {
+    const dialogRef = this.dialog.open(UserCreateComponent, {
+      panelClass: "createDialogPanel",
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result == "create") {
+        this.getUserData();
+      }
+    });
   }
 
-  deleteUser(usr){
-    this.userService.deleteUser(usr).subscribe(res => console.log("DEL RES: ", res), err => console.error("DEL ERR: ", err));
+  deleteUser(usr) {
+    this.userService.deleteUser(usr).subscribe(
+      (res) => this.getUserData(),
+      (err) => console.error("DEL ERR: ", err)
+    );
   }
 
-  openDeleteDialog(usr){
-    const dialogRef = this.dialog.open(DialogDeleteConfirmComponent, {data: usr, panelClass: 'dialogPanel'});
-    dialogRef.afterClosed().subscribe(result => { if (result == "true") { this.deleteUser(usr); } });
+  openDeleteDialog(usr) {
+    const dialogRef = this.dialog.open(DialogDeleteConfirmComponent, {
+      data: usr,
+      panelClass: "dialogPanel",
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result == "true") {
+        this.deleteUser(usr);
+      }
+    });
   }
 
   ngAfterViewInit() {
@@ -59,11 +92,12 @@ export class UsersComponent implements OnInit, AfterViewInit {
         data.role.toLowerCase() +
         data.profile.name.toLowerCase() +
         data.profile.surname.toLowerCase() +
-        data.profile.phoneNumber + data.id +
+        data.profile.phoneNumber +
+        data.id +
         dateFormatter(data.created_at);
       let chunks = filter.match(/\S+/g);
-      let ret : boolean = false;
-      chunks.every((i) => { 
+      let ret: boolean = false;
+      chunks.every((i) => {
         ret = dataStr.indexOf(i) !== -1;
         return ret;
       });
@@ -72,24 +106,30 @@ export class UsersComponent implements OnInit, AfterViewInit {
   }
 
   async getUserData() {
-    await this.userService.getUsers()
+    await this.userService
+      .getUsers()
       .pipe(
         map((response: UserModel[]) => {
-        response.sort((a, b) => {
-          return new Date(a.created_at).getTime() < new Date(b.created_at).getTime() ? 1 : -1;
-        });
-        this.userList.data = response;
-    })).subscribe();
+          response.sort((a, b) => {
+            return new Date(a.created_at).getTime() <
+              new Date(b.created_at).getTime()
+              ? 1
+              : -1;
+          });
+          this.userList.data = response;
+        })
+      )
+      .subscribe();
   }
 
   sortData() {
     this.userList.sortingDataAccessor = (item: UserModel, property) => {
       switch (property) {
-        case 'surname':
+        case "surname":
           return item.profile.surname;
-        case 'phone':
+        case "phone":
           return item.profile.phoneNumber;
-        case 'created at':
+        case "created at":
           return new Date(item.created_at).getTime();
         default:
           return item[property];

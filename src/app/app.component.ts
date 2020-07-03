@@ -1,20 +1,22 @@
-import {Component} from '@angular/core';
-import {AuthenticationService} from './api/authentication/authentication.service';
-import {LoaderService} from './shared/services/loader.service';
+import { Component } from "@angular/core";
+import { AuthenticationService } from "./api/authentication/authentication.service";
+import { LoaderService } from "./shared/services/loader.service";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.scss"],
 })
 export class AppComponent {
-  title = 'drintraining';
+  title = "drintraining";
 
-  constructor(private auth: AuthenticationService, public loader : LoaderService) {
-  }
+  constructor(
+    private auth: AuthenticationService,
+    public loader: LoaderService
+  ) {}
 
   menu() {
-    console.log('Menu');
+    console.log("Menu");
   }
 
   logout() {
@@ -24,5 +26,4 @@ export class AppComponent {
   logged() {
     return this.auth.authenticated;
   }
-
 }

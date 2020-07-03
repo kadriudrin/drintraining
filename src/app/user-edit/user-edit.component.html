@@ -109,7 +109,7 @@
           <mat-checkbox formControlName="is_active_account">Active account</mat-checkbox>
 
           <div class="space"></div>
-          <button class="deleteButton" mat-flat-button color="warn" type="button" (click)="deleteUser()">Delete User</button>
+          <button class="deleteButton" mat-flat-button color="warn" type="button" (click)="openDeleteDialog()">Delete User</button>
 
           <div class="space"></div>
           <button [disabled]="!myForm.valid" class="saveButton" mat-flat-button color="accent">Save</button>
